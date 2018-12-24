@@ -6,7 +6,7 @@ var exphbs = require("express-handlebars");
 
 // Initialize Express
 var app = express();
-var PORT = process.env.port || 3000;
+var port = process.env.port || 3000;
 
 // Middleware
 app.use(express.urlencoded({ extended: false }));
@@ -35,9 +35,9 @@ require("./config/routes")(router);
 // Connect to the Mongo DB
 var databaseUri = "mongodb://127.0.0.1/mongoHeadlines";
 if (process.env.MONGODB_URI) {
-  mongoose.connect(process.env.MONGODB_URI)
+  mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true})
 } else {
-  mongoose.connect(databaseUri);
+  mongoose.connect(databaseUri, {useNewUrlParser: true});
 }
 
 var db = mongoose.connection;
@@ -61,8 +61,8 @@ db.once("open", function(){
 // })
 
 // Start the server
-app.listen(PORT, function() {
-    console.log("App running on port " + PORT + "!");
+app.listen(port, function() {
+    console.log("App running on port " + port + "!");
   });
 
   module.exports = app;
