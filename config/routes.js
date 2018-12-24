@@ -14,7 +14,7 @@ module.exports = function(router){
         res.render("saved");
     });
     //get information and places it in api/fetch
-    router.get("/api/fetch", function(req, res){ 
+    router.get("/api/scrape", function(req, res){ 
         //goes into article controller and run fetch function inside controller
         articleController.fetch(function(err, docs){
             //if no new articles added or none at all displays message.

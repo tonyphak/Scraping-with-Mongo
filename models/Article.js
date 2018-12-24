@@ -23,11 +23,6 @@ var articleSchema = new Schema({
         type: Boolean,
         default: false
     }
-
-    // note: {
-    //     type:Schema.Types.ObjectId,
-    //     ref: "Note"
-    // }
 });
 
 var Article = mongoose.model("Article", articleSchema);

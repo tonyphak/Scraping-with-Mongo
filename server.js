@@ -33,15 +33,32 @@ app.use(express.json());
 require("./config/routes")(router);
 
 // Connect to the Mongo DB
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://127.0.0.1/mongoHeadlines";
-mongoose.connect(MONGODB_URI, {useNewUrlParser: true}, function(error){
-  if(error){
-    console.log(error);
-  }
-  else {
-    console.log("mongoose connection is successful")
-  }
-})
+var databaseUri = "mongodb://127.0.0.1/mongoHeadlines";
+if (process.env.MONGODB_URI) {
+  mongoose.connect(process.env.MONGODB_URI)
+} else {
+  mongoose.connect(databaseUri);
+}
+
+var db = mongoose.connection;
+
+db.on("error", function(err){
+  console.log("Mongoose Error: ", err);
+});
+
+db.once("open", function(){
+  console.log("Mongoose connection successful.");
+});
+
+// var MONGODB_URI = process.env.MONGODB_URI || "mongodb://127.0.0.1/mongoHeadlines";
+// mongoose.connect(MONGODB_URI, {useNewUrlParser: true}, function(error){
+//   if(error){
+//     console.log(error);
+//   }
+//   else {
+//     console.log("mongoose connection is successful")
+//   }
+// })
 
 // Start the server
 app.listen(PORT, function() {
