@@ -65,4 +65,4 @@ app.listen(port, function() {
     console.log("App running on port " + port + "!");
   });
 
-  module.exports = app;
+  module.exports = router;
